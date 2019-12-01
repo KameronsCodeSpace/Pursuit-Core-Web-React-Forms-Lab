@@ -16,22 +16,33 @@ class App extends React.Component {
   }
 
   handleNumberInputs = (event) => {
-    console.log("CHANGED", event.target.value)
+    console.log("CHANGED Nums", event.target.value)
     this.setState({
       numbers: event.target.value
     })
   }
 
   calculateNums = (event) => {
-    let myAnswer = (this.operator === 'sum') ? 'yes' : 'no'
-    console.log("CHANGED", this.operator)
+    // let myAnswer = (event.target.value === 'sum') ? 'yes' : 'no'
+    let myAnswer = ""
+
+    // console.log("Operator Numbers: ", event.target.value)
+    if (event.target.value === 'sum') {
+      myAnswer = "Add Numbers"
+    } else if (event.target.value === 'average') {
+      myAnswer = "Find average"
+    } else if (event.target.value === 'mode') {
+      myAnswer = "Mode of numbers"
+    } else {
+      myAnswer = "Select numbers to calculate"
+    }
     this.setState({
       results: myAnswer
     })
   }
 
   selectedOperator = (event) => {
-    console.log("CHANGED", event.target.value)
+    console.log("CHANGED Operator", event.target.value)
     this.setState({
       operator: event.target.value
     })
@@ -63,15 +74,15 @@ class App extends React.Component {
 
         <select id='operator' onChange={this.selectedOperator} value={operator}>
           <option value="">None</option>
-          <option value='sum'>Sum</option>
-          <option value='average'>Average</option>
-          <option value='mode'>Mode</option>
+          <option value='sum'>sum</option>
+          <option value='average'>average</option>
+          <option value='mode'>mode</option>
         </select>
 
         <br></br>
         <br></br>
 
-        <button onClick={this.calculateNums}>Calculate</button>
+        <button onClick={this.calculateNums} value={operator}>Calculate</button>
 
         <p onChange={this.calculateNums} value={results}></p>
         {/* result = (condition) ? 'something' : 'somethingelse'; */}
