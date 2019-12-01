@@ -17,8 +17,22 @@ class App extends React.Component {
 
   handleNumberInputs = (event) => {
     console.log("CHANGED Nums", event.target.value)
+    let theNumbers = event.target.value
+    let array = theNumbers.split(",");
+    // console.log(newSum)
+
+    let sum = ''
+    // let average = ''
+    // let mode = ''
+
+    for (let i = 0; i < theNumbers.length; i++) {
+      sum += theNumbers[i]
+      // console.log(numbers[i])
+    }
+
     this.setState({
-      numbers: event.target.value
+      numbers: array,
+      results: sum
     })
   }
 
@@ -53,13 +67,12 @@ class App extends React.Component {
 
     const { numbers, operator, results, array, calculated } = this.state
 
-    // if (calculated) {
-    //   return (
-    //     <div className="App">
-    //       <h1>Solved</h1>
-    //     </div>
-    //   )
+
+    // for (let i = 0; i < numbers.length; i++) {
+    //   results += results + numbers[i]
+    //   console.log(numbers[i])
     // }
+
     return (
       <div className="App">
         <h1>Enter each number in the array, seperated by a ','</h1>
@@ -84,7 +97,7 @@ class App extends React.Component {
 
         <button onClick={this.calculateNums} value={operator}>Calculate</button>
 
-        <p onChange={this.calculateNums} value={results}></p>
+        <p onChange={this.calculateNums}> {results} </p>
         {/* result = (condition) ? 'something' : 'somethingelse'; */}
 
       </div >
