@@ -8,8 +8,7 @@ class App extends React.Component {
     this.initialState = {
       numbers: '',
       operator: '',
-      results: '',
-      calcuated: false
+      results: ''
     }
     this.state = this.initialState
   }
@@ -23,6 +22,32 @@ class App extends React.Component {
 
     return sum
 
+  }
+
+  numAverage = (array) => {
+    let total = this.addNums(array)
+    let average = total / array.length
+    console.log("Array:", array, 'Total:', total, 'Average:', average)
+    return average
+  }
+
+  modeNumber = (array) => {
+    if (array.length == 0)
+      return null;
+    let modeMap = {};
+    let maxElem = array[0], maxCount = 1;
+    for (let i = 0; i < array.length; i++) {
+      let elem = array[i];
+      if (modeMap[elem] == null)
+        modeMap[elem] = 1;
+      else
+        modeMap[elem]++;
+      if (modeMap[elem] > maxCount) {
+        maxElem = elem;
+        maxCount = modeMap[elem];
+      }
+    }
+    return maxElem;
   }
 
   handleNumberInputs = (event) => {
@@ -50,10 +75,7 @@ class App extends React.Component {
     // return addNums(array)
   }
 
-
-
   calculateNums = (event) => {
-    // let myAnswer = (event.target.value === 'sum') ? 'yes' : 'no'
     let myAnswer = ""
 
     // console.log("Operator Numbers: ", event.target.value)
@@ -61,11 +83,11 @@ class App extends React.Component {
       myAnswer = this.addNums(this.state.numbers)
       console.log(myAnswer)
     } else if (event.target.value === 'average') {
-      myAnswer = "Find average"
+      myAnswer = this.numAverage(this.state.numbers)
     } else if (event.target.value === 'mode') {
-      myAnswer = "Mode of numbers"
+      myAnswer = this.modeNumber(this.state.numbers)
     } else {
-      myAnswer = "Select numbers to calculate"
+      myAnswer = "Select operation to calculate"
     }
     this.setState({
       results: myAnswer
@@ -82,7 +104,7 @@ class App extends React.Component {
   render() {
     console.log('rendered this.state')
 
-    const { numbers, operator, results, calculated } = this.state
+    const { numbers, operator, results } = this.state
 
 
     // for (let i = 0; i < numbers.length; i++) {
