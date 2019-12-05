@@ -8,33 +8,49 @@ class App extends React.Component {
     this.initialState = {
       numbers: '',
       operator: '',
-      array: '',
       results: '',
       calcuated: false
     }
     this.state = this.initialState
   }
 
+  addNums = (array) => {
+    let sum = 0
+    console.log("Array", array)
+    for (let i = 0; i < array.length; i++) {
+      sum += array[i]
+    }
+
+    return sum
+
+  }
+
   handleNumberInputs = (event) => {
     console.log("CHANGED Nums", event.target.value)
     let theNumbers = event.target.value
     let array = theNumbers.split(",");
+    let arrayNums = [];
+
+    //Arrow functions have implicit returns
+    arrayNums = array.map((number) => Number(number))
+
     // console.log(newSum)
-
-    let sum = ''
-    // let average = ''
-    // let mode = ''
-
-    for (let i = 0; i < theNumbers.length; i++) {
-      sum += theNumbers[i]
-      // console.log(numbers[i])
-    }
+    // // console.log("Array", array)
+    // for (let i = 0; i < array.length; i++) {
+    //   arrayNums.push(Number(array[i]))
+    //   // console.log('adding sum', Number(sum))
+    // }
+    // console.log('MySum', sum)
 
     this.setState({
-      numbers: array,
-      results: sum
+      numbers: arrayNums,
+      // results: sum
     })
+
+    // return addNums(array)
   }
+
+
 
   calculateNums = (event) => {
     // let myAnswer = (event.target.value === 'sum') ? 'yes' : 'no'
@@ -42,7 +58,8 @@ class App extends React.Component {
 
     // console.log("Operator Numbers: ", event.target.value)
     if (event.target.value === 'sum') {
-      myAnswer = "Add Numbers"
+      myAnswer = this.addNums(this.state.numbers)
+      console.log(myAnswer)
     } else if (event.target.value === 'average') {
       myAnswer = "Find average"
     } else if (event.target.value === 'mode') {
@@ -65,7 +82,7 @@ class App extends React.Component {
   render() {
     console.log('rendered this.state')
 
-    const { numbers, operator, results, array, calculated } = this.state
+    const { numbers, operator, results, calculated } = this.state
 
 
     // for (let i = 0; i < numbers.length; i++) {
